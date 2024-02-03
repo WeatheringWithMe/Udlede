@@ -1,5 +1,5 @@
 {
-	"package": "${mixin_package}",
+	"package": "me.morishima.udlede.mixin",
 	"required": true,
 	"refmap": "${mixin_refmap}",
 	"target": "@env(DEFAULT)",

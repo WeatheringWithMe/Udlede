@@ -1,0 +1,4 @@
+# Commands
+udlede.usage.command_tree=Please use the sub-commands for more features.
+
+udlede.usage.ftb.export=Export all the FTB Quest un-localized text to I18N.
