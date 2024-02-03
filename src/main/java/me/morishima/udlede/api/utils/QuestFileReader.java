@@ -80,7 +80,7 @@ public class QuestFileReader {
                 chapter.title = String.format("{%s}", key);
             }
 
-            if (!chapter.subtitle.get(0).startsWith("{")) {
+            if (!chapter.subtitle.isEmpty() && !chapter.subtitle.get(0).startsWith("{")) {
                 var key = getTranslationKey("quest",
                         !UdledeConfig.ftbq.useSequentialID ? title : ID.getFormattedID(),
                         "subtitle");
@@ -143,7 +143,7 @@ public class QuestFileReader {
             }
 
             //Description for quests.
-            if (!quest.description.get(0).startsWith("{")) {
+            if (!quest.description.isEmpty() && !quest.description.get(0).startsWith("{")) {
                 var key = getTranslationKey("quest",
                         !UdledeConfig.ftbq.useSequentialID ? title : ID.getFormattedID(),
                         "desc");
