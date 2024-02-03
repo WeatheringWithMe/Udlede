@@ -2,23 +2,24 @@ package me.morishima.udlede.api.utils;
 
 import me.morishima.udlede.Udlede;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.OutputStreamWriter;
+import java.util.HashMap;
 import java.util.Objects;
 import java.util.TreeMap;
 
 public class MinecraftLangSerializer {
     private static final String N = System.lineSeparator();
-    private final TreeMap<String, TreeMap<String, String>> maps = new TreeMap<>();
+    private final TreeMap<String, HashMap<String, String>> maps = new TreeMap<>();
 
     public MinecraftLangSerializer() {}
 
-    public void addUnNameMap(TreeMap<String, String> map) {
-        maps.put("!", map);
+    public void addUnNameMap(HashMap<String, String> map) {
+        addNamedMap("!", map);
     }
 
-    public void addNamedMap(String areaName, TreeMap<String, String> map) {
+    public void addNamedMap(String areaName, HashMap<String, String> map) {
         maps.put(areaName, map);
     }
 
@@ -40,11 +41,12 @@ public class MinecraftLangSerializer {
     }
 
     public void writeToFile(String path) {
-        try {
-            Files.write(Paths.get(path), toString().getBytes());
+        try (FileOutputStream fos = new FileOutputStream(path)) {
+                var osw = new OutputStreamWriter(fos);
+                osw.write(toString());
+                osw.flush();
         } catch (IOException e) {
-            Udlede.logger.error("MinecraftLangSerializer: Caught IOException " + e);
-            Udlede.logger.error("MinecraftLangSerializer: Cant write to file!");
+                Udlede.logger.error(e);
         }
     }
 

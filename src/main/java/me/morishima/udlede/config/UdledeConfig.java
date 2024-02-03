@@ -17,6 +17,12 @@ public class UdledeConfig {
     public static class FTBQuest {
 
         @Config.Comment({
+                "Use sequential id for exported translation key id when it is true.",
+                "Use raw title text for exported translation key id when it is false."
+        })
+        public boolean useSequentialID = true;
+
+        @Config.Comment({
                 "Translation key prefix when player exporting FTBQ translation map.",
                 "Format: <exportKeyID>.<ObjectName>.<SequentialKeyID>.<TextType>",
                 "Example: modpack.quest.000001.subtitle",
