@@ -1,17 +1,17 @@
-package me.morishima.udlede.integration.ftbquest.commands;
+package me.morishima.udlede.integration.betterquesting.commands;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraftforge.server.command.CommandTreeBase;
 
-public class FTBQCommandTree extends CommandTreeBase {
+public class BQCommandTree extends CommandTreeBase {
 
-    public FTBQCommandTree() {
-        super.addSubcommand(new FTBQuestExportCommand());
+    public BQCommandTree() {
+        super.addSubcommand(new BQQuestExportCommand());
     }
 
     @Override
     public String getName() {
-        return "ftbq";
+        return "bq";
     }
 
     @Override

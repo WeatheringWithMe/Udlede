@@ -7,21 +7,22 @@ import com.feed_the_beast.ftbquests.quest.QuestFile;
 import com.feed_the_beast.ftbquests.quest.loot.RewardTable;
 import com.feed_the_beast.ftbquests.quest.reward.Reward;
 import com.feed_the_beast.ftbquests.quest.task.Task;
+import me.morishima.udlede.Udlede;
 import me.morishima.udlede.config.UdledeConfig;
 
 import java.util.HashMap;
 import java.util.StringJoiner;
 
-public class QuestFileReader {
+public class FTBQuestReader {
     private static final String N = System.lineSeparator();
     private final QuestFile file;
     private final MinecraftLangSerializer langSerializer = new MinecraftLangSerializer();
 
-    public QuestFileReader(QuestFile file) {
+    public FTBQuestReader(QuestFile file) {
         this.file = file;
     }
 
-    public QuestFileReader() {
+    public FTBQuestReader() {
         this.file = FTBQuests.PROXY.getQuestFile(false);
     }
 
@@ -190,8 +191,15 @@ public class QuestFileReader {
     }
 
     public MinecraftLangSerializer getLangSerializer() {
-        readRewardTable();
-        readChapters();
+        // Thread of read configs.
+        Thread t1 = new Thread(this::readChapters);
+        Thread t2 = new Thread(this::readRewardTable);
+        t1.start();
+        t2.start();
+        Udlede.logger.info("QuestFileReader: Reading by multi-thread...");
+
+        langSerializer.addHeadComment("FTBQuest");
+
         return langSerializer;
     }
 }
